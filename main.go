@@ -6,7 +6,7 @@ import (
     "log"
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+    "go.mongodb.org/mongo-driver/bson/primitive"
     "go.mongodb.org/mongo-driver/mongo/options"
     "context"
     "net/http"
@@ -17,7 +17,7 @@ import (
 )
 
 var collection *mongo.Collection
-var mySecretKey = []byte("supersecretkeytokensigned")
+// var mySecretKey = []byte("supersecretkeytokensigned")
 
 func init(){
     
@@ -153,7 +153,7 @@ func updateUser(res http.ResponseWriter, req *http.Request){
     
     res.Header().Set("content-type","application/json")
     log.Print(user)
-    updateResult := collection.FindOneAndUpdate(context.TODO(), bson.M{"_id": id},bson.M{"$set":bson.A{user}})
+    updateResult := collection.FindOneAndUpdate(context.TODO(), bson.M{"_id": id},bson.M{"$set":req.Body})
     
     json.NewEncoder(res).Encode(updateResult)
 }
